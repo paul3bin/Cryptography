@@ -31,8 +31,9 @@ def Running_Key_Cipher(plainText,key,code):
         for i in range(len(pt)):
             encryptedText+=tabulaRecta.values[ord(pt[i])-65][ord(ky[i])-65]
         return encryptedText
+    
+    #code decryption
     else:
-        #code decryption
         decryptedText=''
         for i in range(len(pt)):
             decryptedText+=''.join(tabulaRecta[tabulaRecta[ky[i]]==pt[i]].index.values)
