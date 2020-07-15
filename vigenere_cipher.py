@@ -66,4 +66,4 @@ if option==1:
 elif option==2:
     print('Decrypted text: {}'.format(cipherObj.decrypt()))
 else:
-    print('Wrong oprion. Try again.')
+    print('Wrong option. Try again.')
