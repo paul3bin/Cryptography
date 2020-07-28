@@ -15,7 +15,7 @@ class VigenereCipher:
         for char in txt:
             if char==' ':
                 txt.remove(char)
-        
+        # Removing white spaces from the key
         for char in ky:
             if char==' ':
                 ky.remove(char)
