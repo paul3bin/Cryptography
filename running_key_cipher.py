@@ -7,51 +7,52 @@ from pandas import DataFrame
 # function for running key cipher
 
 
-def Running_Key_Cipher(plainText, key, code):
+class RunningKeyCipher:
+
+    def __init__(self, plainText, key):
     # converting the plain text and key to upper case
-    pt = list(plainText.upper())
-    ky = list(key.upper())
+        self.pt = list(plainText.upper())
+        self.ky = list(key.upper())
 
-    # removing spaces in key and plain text
-    for char in ky:
-        if char == ' ':
-            ky.remove(char)
-    for char in pt:
-        if char == ' ':
-            pt.remove(char)
+        # removing spaces in key and plain text
+        for char in self.ky:
+            if char == ' ':
+                self.ky.remove(char)
+        for char in self.pt:
+            if char == ' ':
+                self.pt.remove(char)
 
-    # creating a DataFrame of size 26x26
-    tab, tableau = [chr(a) for a in range(65, 91)], []
-    for i in range(26):
-        a = tab[i:]+tab[:i]
-        tableau.append(a)
-    tabulaRecta = DataFrame(tableau, index=[chr(a) for a in range(
-        65, 91)], columns=[chr(a) for a in range(65, 91)])
+        # creating a DataFrame of size 26x26
+        tab, tableau = [chr(a) for a in range(65, 91)], []
+        for i in range(26):
+            a = tab[i:]+tab[:i]
+            tableau.append(a)
+        self.tabulaRecta = DataFrame(tableau, index=tab, columns=tab)
 
-    # code encryption
-    if code:
+    def encrypt(self):
         encryptedText = ''
-        for i in range(len(pt)):
-            encryptedText += tabulaRecta.values[ord(pt[i])-65][ord(ky[i])-65]
+        for i in range(len(self.pt)):
+            encryptedText += self.tabulaRecta.values[ord(self.pt[i])-65][ord(self.ky[i])-65]
         return encryptedText
-
-    # code decryption
-    else:
+    
+    def decrypt(self):
         decryptedText = ''
-        for i in range(len(pt)):
+        for i in range(len(self.pt)):
             decryptedText += ''.join(
-                tabulaRecta[tabulaRecta[ky[i]] == pt[i]].index.values)
+                self.tabulaRecta[self.tabulaRecta[self.ky[i]] == self.pt[i]].index.values)
         return decryptedText
 
 
-code = input('Enter 1 to encrypt or 0 to decrypt : ')
-if int(code) == 0 or int(code) == 1:
-    plainText = input('Enter plain text : ')
-    key = input('Enter key : ')
-    if len(plainText) > len(key):
-        print(
-            'The length of the key should be greater than or equal to length of plain text.')
+if __name__ == '__main__':
+    text = input('Text : ')
+    key = input('Key : ')
+    if len(text) > len(key):
+        print('Length of key should be >= text!')
     else:
-        print(Running_Key_Cipher(plainText, key, int(code)))
-else:
-    print('WRONG OPTION!')
+        code = int(input('Enter 1 to encrypt or 0 to decrypt : ') )
+        if  code == 1:
+            print(RunningKeyCipher(text, key).encrypt())
+        elif code == 0:
+            print(RunningKeyCipher(text, key).decrypt())
+        else:
+            print('WRONG OPTION!')
