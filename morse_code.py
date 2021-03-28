@@ -4,6 +4,10 @@ Python code for encryption and decryption of a message using morse code
 
 
 class MorseCode:
+
+    def __init__(self, message) -> None:
+        self.message = message.upper()
+
     # Function that returns value or key from morse_dict dictionary
     def getDictItems(self, val, option):
         morse_dict = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....',
@@ -24,20 +28,20 @@ class MorseCode:
                     return key
 
     # Function to encrypt given message
-    def encrypt(self, message):
+    def encrypt(self):
         cipherText = ''
-        for character in message:
+        for character in self.message:
             if character == ' ':
                 cipherText += '/ '
             else:
                 cipherText += self.getDictItems(character, 1)
                 cipherText += ' '
-        return cipherText
+        return cipherText[:-1]
 
     # Function to decrypt given cipher text
-    def decrypt(self, message):
+    def decrypt(self):
         plainText = ''
-        characterList = message.split(' ')
+        characterList = self.message.split(' ')
         for character in characterList:
             if character == '/':
                 plainText += ' '
@@ -46,14 +50,15 @@ class MorseCode:
         return plainText
 
 
-morseObj = MorseCode()
-print('\n--------------------Morse Code--------------------')
-text = str(input('Enter message: '))
-print('\n1. Encrypt.\n2. Decrypt.')
-option = int(input('Option: '))
-if option == 1:
-    print(morseObj.encrypt(text.upper()))
-elif option == 2:
-    print(morseObj.decrypt(text))
-else:
-    print('Wrong option. Try again.')
+if __name__ == '__main__':
+    print('\n--------------------Morse Code--------------------')
+    text = str(input('Enter message: '))
+    morseObj = MorseCode(text)
+    print('\n1. Encrypt.\n2. Decrypt.')
+    option = int(input('Option: '))
+    if option == 1:
+        print(morseObj.encrypt())
+    elif option == 2:
+        print(morseObj.decrypt())
+    else:
+        print('Wrong option. Try again.')
