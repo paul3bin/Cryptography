@@ -27,14 +27,15 @@ class CaesarCipher:
         print("Your encrypted text is :"+cipherText)
 
 
-plainText = input("Enter your plain text : ")
-key = int(input("Enter shift value(integer) : "))
-print("\n1. Encrypt this text\n2. Decrypt this text")
-optionInput = int(input("Option: "))
-cipherobj = CaesarCipher()
-if optionInput == 1:
-    cipherobj.encryption(plainText, key)
-elif optionInput == 2:
-    cipherobj.decryption(plainText, key)
-else:
-    print('Invalid option.')
+if __name__ == '__main__':
+    plainText = input("Enter your plain text : ")
+    key = int(input("Enter shift value(integer) : "))
+    print("\n1. Encrypt this text\n2. Decrypt this text")
+    optionInput = int(input("Option: "))
+    cipherobj = CaesarCipher()
+    if optionInput == 1:
+        cipherobj.encryption(plainText, key)
+    elif optionInput == 2:
+        cipherobj.decryption(plainText, key)
+    else:
+        print('Invalid option.')
