@@ -19,13 +19,12 @@ class MorseCode:
                       '.': '.-.-.-', ',': '--..--', '?': '..--..', '!': '-.-.--', '/': '-..-.',
                       '(': '-.--.', ')': '-.--.-', '&': '.-...', ':': '---...', ';': '-.-.-.',
                       '=': '-...-', '+': '.-.-.', '-': '-....-', '_': '..--.-', '$': '...-..-', '@': '.--.-.'}
-        if option == 1:
-            return morse_dict[val]
 
-        elif option == 2:
-            for key, value in morse_dict.items():
-                if val == value:
-                    return key
+        operation = {1: morse_dict, 2: list(morse_dict.keys())}
+        if option == 1:
+            return operation[option][val]
+        else:
+            return operation[option][list(morse_dict.values()).index(val)]
 
     # Function to encrypt given message
     def encrypt(self):
