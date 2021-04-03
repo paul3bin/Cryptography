@@ -7,36 +7,19 @@ class VigenereCipher:
 
     # Initialization funtion
     def __init__(self, text, key):
-
-        # creating a list of character from the given text and key in upper case.
-        txt = list(text.upper())
-        ky = list(key.upper())
-
-        # Removing the white space characters.
-        for char in txt:
-            if char == ' ':
-                txt.remove(char)
-        # Removing white spaces from the key
-        for char in ky:
-            if char == ' ':
-                ky.remove(char)
-
-        self.text = txt
-        self.key = ky
+        # converting key and text to uppercase and removing spaces from them.
+        self.text = "".join(text.upper().split(' '))
+        self.key = "".join(key.upper().split(' '))
 
     # Function that encrypts the given plain text using given key.
     def encrypt(self):
         cipher_text, j = [], 0
         for i in range(len(self.text)):
-            if j < len(self.key):
-                character = (
-                    (ord(self.text[i])+ord(self.key[j])) % 26)+ord('A')
-                j += 1
-            else:
+            if j > len(self.key)-1:
                 j = 0
-                character = (
-                    (ord(self.text[i])+ord(self.key[j])) % 26)+ord('A')
-                j += 1
+            character = (
+                (ord(self.text[i])+ord(self.key[j])) % 26)+ord('A')
+            j += 1
 
             cipher_text.append(chr(character))
         return ''.join(cipher_text)
@@ -45,31 +28,28 @@ class VigenereCipher:
     def decrypt(self):
         plain_text, j = [], 0
         for i in range(len(self.text)):
-            if j < len(self.key):
-                character = (
-                    (ord(self.text[i])-ord(self.key[j])+26) % 26)+ord('A')
-                plain_text.append(chr(character))
-                j += 1
-            else:
+            if j > len(self.key)-1:
                 j = 0
-                character = (
-                    (ord(self.text[i])-ord(self.key[j])+26) % 26)+ord('A')
-                plain_text.append(chr(character))
-                j += 1
+            character = (
+                (ord(self.text[i])-ord(self.key[j])+26) % 26)+ord('A')
+            plain_text.append(chr(character))
+            j += 1
 
         return ''.join(plain_text)
 
 
-print('\n----------------------Vigenere Cipher----------------------')
-text = input('Enter text or phrase: ')
-key = input('Enter key(Note: The key should be less than the text you entered above and the key should be a text or phrase): ')
-print('\n1. Encrypt a text.\n2. Decrypt a text.\n')
-option = int(input('Option...(1/2): '))
-cipherObj = VigenereCipher(text, key)
+if __name__ == '__main__':
+    print('\n----------------------Vigenere Cipher----------------------')
+    text = input('Enter text or phrase: ')
+    key = input(
+        'Enter key(Note: The key should be less than the text you entered above and the key should be a text or phrase): ')
+    print('\n1. Encrypt a text.\n2. Decrypt a text.\n')
+    option = int(input('Option...(1/2): '))
+    cipherObj = VigenereCipher(text, key)
 
-if option == 1:
-    print(f'Enrypted text: {cipherObj.encrypt()}')
-elif option == 2:
-    print(f'Decrypted text: {cipherObj.decrypt()}')
-else:
-    print('Wrong option. Try again.')
+    if option == 1:
+        print(f'Enrypted text: {cipherObj.encrypt()}')
+    elif option == 2:
+        print(f'Decrypted text: {cipherObj.decrypt()}')
+    else:
+        print('Wrong option. Try again.')
