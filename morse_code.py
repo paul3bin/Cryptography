@@ -28,25 +28,17 @@ class MorseCode:
 
     # Function to encrypt given message
     def encrypt(self):
-        cipherText = ''
-        for character in self.message:
-            if character == ' ':
-                cipherText += '/ '
-            else:
-                cipherText += self.getDictItems(character, 1)
-                cipherText += ' '
-        return cipherText[:-1]
+
+        return "".join(['/ ' if character == ' '
+                        else f'{self.getDictItems(character, 1)} '
+                        for character in self.message])
 
     # Function to decrypt given cipher text
     def decrypt(self):
-        plainText = ''
-        characterList = self.message.split(' ')
-        for character in characterList:
-            if character == '/':
-                plainText += ' '
-            else:
-                plainText += self.getDictItems(character, 2)
-        return plainText
+
+        return "".join([' ' if character == '/'
+                        else f'{self.getDictItems(character, 2)}'
+                        for character in self.message.split(' ')])
 
 
 if __name__ == '__main__':
